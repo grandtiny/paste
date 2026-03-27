@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网络剪贴板</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-screen">
+    <h1>网络剪贴板</h1>
+    <input type="password" id="password" placeholder="输入密码">
+    <button onclick="login()">登录</button>
+    <p id="login-error"></p>
+  </div>
+
+  <div id="app" style="display:none">
+    <h1>网络剪贴板</h1>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="搜索内容..." oninput="searchItems()">
+      <button onclick="clearSearch()">清空</button>
+    </div>
+    <textarea id="new-item" placeholder="输入内容..."></textarea>
+    <button onclick="addItem()">添加</button>
+    <div id="items"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

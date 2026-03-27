@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(command -v codex 2>/dev/null || echo \"codex not found\")",
+      "Bash(npm install:*)",
+      "Bash(curl -X POST http://localhost:3101/auth -H \"Content-Type: application/json\" -d '{\"password\":\"test123\"}')",
+      "Bash(sleep 2 && curl -X POST http://localhost:3101/auth -H \"Content-Type: application/json\" -d '{\"password\":\"test123\"}')",
+      "Bash(curl http://localhost:3101/ 2>&1 | head -5)",
+      "Bash(pkill -f \"node server/index.js\")",
+      "Bash(taskkill //F //IM node.exe 2>/dev/null || true)",
+      "Bash(netstat -tulpn)",
+      "Bash(npm start:*)",
+      "Bash(curl -s http://localhost:3101)"
+    ]
+  }
+}

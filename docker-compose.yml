@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  clipboard:
+    build: .
+    ports:
+      - "3101:3101"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=production
+      - PORT=3101
+      - CLIPBOARD_PASSWORD=${CLIPBOARD_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: unless-stopped
