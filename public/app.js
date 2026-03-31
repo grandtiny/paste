@@ -94,6 +94,7 @@ function addItemToDOM(item) {
     <div class="item-content ${collapsed || lines > 3 ? 'collapsed' : ''}">${escapeHtml(item.content)}</div>
     <div class="item-actions">
       ${lines > 3 ? `<button class="toggle-btn" onclick="toggleCollapse('${item.id}')">展开/收起</button>` : ''}
+      <button class="copy-btn" onclick="copyItem('${item.id}')">复制</button>
       <button class="delete-btn" onclick="deleteItem('${item.id}')">删除</button>
       <span class="item-time">${formatTime(item.timestamp)}</span>
     </div>
@@ -120,6 +121,29 @@ function searchItems() {
 function clearSearch() {
   document.getElementById('search').value = '';
   renderItems(allItems);
+}
+
+function copyItem(id) {
+  const item = allItems.find(i => i.id === id);
+  if (item) {
+    navigator.clipboard.writeText(item.content).then(() => {
+      showToast('已复制到剪贴板');
+    }).catch(() => {
+      showToast('复制失败');
+    });
+  }
+}
+
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
 }
 
 if (token) initSocket();
