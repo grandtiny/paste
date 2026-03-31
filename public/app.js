@@ -125,13 +125,21 @@ function clearSearch() {
 
 function copyItem(id) {
   const item = allItems.find(i => i.id === id);
-  if (item) {
-    navigator.clipboard.writeText(item.content).then(() => {
-      showToast('已复制到剪贴板');
-    }).catch(() => {
-      showToast('复制失败');
-    });
+  if (!item) return;
+
+  const textarea = document.createElement('textarea');
+  textarea.value = item.content;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  try {
+    document.execCommand('copy');
+    showToast('已复制到剪贴板');
+  } catch (err) {
+    showToast('复制失败');
   }
+  document.body.removeChild(textarea);
 }
 
 function showToast(msg) {
